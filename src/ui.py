@@ -58,6 +58,11 @@ def inject_css() -> None:
             margin: 10px 0 4px 0;
         }
         .badge-q { background:#fce8e6; color:#c5221f; }
+        div[data-testid="stCustomComponentV1"] {
+            border: 1px solid #e8eaed;
+            border-radius: 8px;
+            overflow: hidden;
+        }
         </style>
         """,
         unsafe_allow_html=True,
