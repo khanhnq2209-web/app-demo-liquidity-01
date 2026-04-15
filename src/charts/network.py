@@ -4,7 +4,7 @@ from __future__ import annotations
 import pandas as pd
 
 
-def ownership_tree(dim_entity: pd.DataFrame, rel: pd.DataFrame, root: str = "001") -> dict:
+def ownership_tree(dim_entity: pd.DataFrame, rel: pd.DataFrame, root: str = "GELEX") -> dict:
     children = rel.groupby("parent_entity_id")
     name = dict(zip(dim_entity["entity_id"], dim_entity["entity_name"]))
 
@@ -43,19 +43,19 @@ def ownership_tree(dim_entity: pd.DataFrame, rel: pd.DataFrame, root: str = "001
 # ---------------------------------------------------------------------------
 
 _CATEGORIES = [
-    {"name": "Holding",       "itemStyle": {"color": "#c5221f"}},
-    {"name": "Hatang (A)",    "itemStyle": {"color": "#1a73e8"}},
-    {"name": "Electric (B)",  "itemStyle": {"color": "#188038"}},
-    {"name": "Direct",        "itemStyle": {"color": "#e8710a"}},
+    {"name": "Holding",     "itemStyle": {"color": "#c5221f"}},
+    {"name": "GEE",         "itemStyle": {"color": "#1a73e8"}},
+    {"name": "GEL",         "itemStyle": {"color": "#188038"}},
+    {"name": "Trực thuộc",  "itemStyle": {"color": "#e8710a"}},
 ]
 
 
 def _category_index(e_row) -> int:
     if e_row.entity_type == "HOLDING":
         return 0
-    if e_row.subholding_code == "A":
+    if e_row.subholding_code == "GEE":
         return 1
-    if e_row.subholding_code == "B":
+    if e_row.subholding_code == "GEL":
         return 2
     return 3
 

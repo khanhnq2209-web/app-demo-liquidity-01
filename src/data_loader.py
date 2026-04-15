@@ -20,7 +20,7 @@ def _read(name: str, parse_dates: list[str] | None = None) -> pd.DataFrame:
 
 @st.cache_data(show_spinner=False)
 def load_all() -> dict[str, pd.DataFrame]:
-    # Cache busted: 2026-04-15 — entity list updated to real GELEX entities (GEE/GEL structure)
+    # Cache busted: 2026-04-15b — fixed root=GELEX, GEE/GEL categories, rich cashflow restored
     dfs = {
         "dim_entity":            _read("dim_entity.csv"),
         "dim_period":            _read("dim_period.csv", parse_dates=["period_end"]),

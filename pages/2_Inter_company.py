@@ -68,7 +68,7 @@ Click vào một node để xem hồ sơ chi tiết, danh sách đối tác nộ
     if pick_scn:
         ent_filtered = ent_filtered[ent_filtered["supply_chain_node"].isin(pick_scn)]
 
-    clicked = render(ownership_tree(ent_filtered, rel, root="001"), key="ih_tree", height="560px")
+    clicked = render(ownership_tree(ent_filtered, rel, root="GELEX"), key="ih_tree", height="560px")
     if clicked and isinstance(clicked, dict) and "name" in clicked:
         eid = clicked["name"].split(" · ")[0]
         if eid in ent["entity_id"].values and eid != ss.get("selected_entity"):
