@@ -1,0 +1,25 @@
+﻿entity_id,entity_name,entity_type,parent_entity_id,subholding_code,industry,supply_chain_node,currency_code
+GELEX,Công ty cổ phần Tập đoàn Gelex,HOLDING,,,Holding,Holding,VND
+GEE,Công ty Cổ phần Thiết bị điện Gelex,SUBHOLDING,GELEX,GEE,Electric equipment,Holding,VND
+CADIVI,Công ty Cổ phần Dây Cáp Điện Việt Nam,COMPANY,GEE,GEE,Cables,Manufacturing,VND
+CMB,Công ty TNHH MTV Cadivi Miền Bắc,COMPANY,CADIVI,GEE,Cables,Manufacturing,VND
+THI,Công ty Cổ phần Thiết bị Điện,COMPANY,GEE,GEE,Electric equipment,Distribution,VND
+MEE,Công ty Cổ phần Sản xuất Thiết bị điện Đông Anh,COMPANY,GEE,GEE,Electric equipment,Manufacturing,VND
+HEM,Công ty Cổ phần Chế tạo Điện Cơ Hà Nội,COMPANY,GEE,GEE,Motors,Manufacturing,VND
+EMIC,Công ty Cổ phần Thiết bị đo điện EMIC,COMPANY,GEE,GEE,Metering,Manufacturing,VND
+CFT,Công ty Dây đồng Việt Nam - CFT,COMPANY,GEE,GEE,Cables,Raw Material,VND
+Phatdien,Công ty TNHH Một thành viên Phát điện Gelex,COMPANY,GEE,GEE,Power generation,Operation,VND
+GETC,Công ty Cổ phần Mua bán điện GELEX,COMPANY,GEE,GEE,Power generation,Distribution,VND
+GELEXTECH,Công ty TNHH GELEX Technology,COMPANY,GELEX,,Technology,Assembly/EPC,VND
+GELEXINVEST,Công ty TNHH Đầu tư GELEX,COMPANY,GELEX,,Investment,Holding,VND
+GEL,Công ty cổ phần Hạ tầng Gelex,SUBHOLDING,GELEX,GEL,Infrastructure,Holding,VND
+VGC,Tổng Công ty Viglacera – CTCP và các công ty con,COMPANY,GEL,GEL,Building materials,Manufacturing,VND
+Viwasupco,Công ty Cổ phần Đầu tư Nước sạch Sông Đà,COMPANY,VGC,GEL,Water utility,Operation,VND
+PXL,Công ty Cổ phần Đầu tư và phát triển KCN Dầu khí Long Sơn,COMPANY,GEL,GEL,Industrial zone,Operation,VND
+FIH,Công ty TNHH FIH và các công ty con,COMPANY,GEL,GEL,Mixed,Assembly/EPC,VND
+TITANHP,Công ty Cổ phần Titan Hải Phòng,COMPANY,GEL,GEL,Logistics,Distribution,VND
+WADACO,Công ty Cổ phần Nước sạch Tây Hà Nội,COMPANY,GEL,GEL,Water utility,Operation,VND
+TitanCorp,Công ty TNHH Titan Corporation,COMPANY,TITANHP,GEL,Logistics,Retail/End-User,VND
+BSG1,Công ty TNHH Hạ tầng Gelex Bắc Sài Gòn 1,COMPANY,GEL,GEL,Infrastructure,Operation,VND
+BSG2,Công ty TNHH Hạ tầng Gelex Bắc Sài Gòn 2,COMPANY,GEL,GEL,Infrastructure,Operation,VND
+TTP,Công ty TNHH Hạ tầng Gelex Tây Thành Phố,COMPANY,GEL,GEL,Infrastructure,Operation,VND
