@@ -96,7 +96,8 @@ def ic_sankey(df: pd.DataFrame, name_map: dict[str, str],
         })
 
     return {
-        "tooltip": {"trigger": "item", "triggerOn": "mousemove"},
+        "tooltip": {"trigger": "item", "triggerOn": "mousemove",
+                    "formatter": "function(p){var v=(p.value/1e9).toFixed(2)+' Tỷ VND';if(p.dataType==='edge'){return p.data.source+' → '+p.data.target+'<br/>'+v;}return p.name+'<br/>'+v;}"},
         "toolbox": {
             "show": True,
             "right": "2%",
@@ -205,9 +206,8 @@ def cf_sankey(df: pd.DataFrame, name_map: dict[str, str],
 
     return {
         "tooltip": {
-            "trigger": "item",
-            "triggerOn": "mousemove",
-            "formatter": "{b}: {c}",
+            "trigger": "item", "triggerOn": "mousemove",
+            "formatter": "function(p){var v=(p.value/1e9).toFixed(2)+' Tỷ VND';if(p.dataType==='edge'){return p.data.source+' → '+p.data.target+'<br/>'+v;}return p.name+'<br/>'+v;}",
         },
         "toolbox": {
             "show": True,

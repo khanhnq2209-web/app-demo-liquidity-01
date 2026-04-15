@@ -25,14 +25,15 @@ def ar_heatmap(df: pd.DataFrame, top_k: int = 5) -> dict:
             data.append({"value": [j, i, float(pivot.iloc[i, j])], "name": f"{rows[i]}||{cols[j]}"})
     max_val = float(pivot.values.max()) if pivot.size else 1.0
     return {
-        "tooltip": {"position": "top"},
+        "tooltip": {"position": "top", "formatter": "function(p){var parts=p.data.name.split('||');return parts[0]+'<br/>'+parts[1]+'<br/>'+(p.data.value[2]/1e9).toFixed(2)+' Tỷ VND';}"},
         "toolbox": _TOOLBOX,
         "dataZoom": _DZ,
         "grid": {"height": "65%", "top": "8%", "left": 120, "right": 80},
         "xAxis": {"type": "category", "data": cols, "splitArea": {"show": True}},
         "yAxis": {"type": "category", "data": rows, "splitArea": {"show": True}},
         "visualMap": {"min": 0, "max": max_val, "calculable": True,
-                       "orient": "horizontal", "left": "center", "bottom": 20},
+                       "orient": "horizontal", "left": "center", "bottom": 20,
+                       "formatter": "function(v){return (v/1e9).toFixed(1)+' B';}"},
         "series": [{
             "name": "AR",
             "type": "heatmap",
@@ -56,13 +57,14 @@ def cash_heatmap(df: pd.DataFrame, name_map: dict[str, str]) -> dict:
 
     max_val = float(max(vals)) if vals else 1.0
     return {
-        "tooltip": {"position": "top", "formatter": "{b}<br/>Cash: {c}"},
+        "tooltip": {"position": "top", "formatter": "function(p){return p.data.name+'<br/>'+(p.data.value[2]/1e9).toFixed(2)+' Tỷ VND';}"},
         "toolbox": _TOOLBOX,
         "dataZoom": _DZ,
         "grid": {"height": "45%", "top": "8%", "left": 60, "right": 20},
         "xAxis": {"type": "category", "data": entities, "splitArea": {"show": True}, "axisLabel": {"rotate": 30, "interval": 0, "fontSize": 10}},
         "yAxis": {"type": "category", "data": ["Tiền mặt"], "splitArea": {"show": True}},
-        "visualMap": {"min": 0, "max": max_val, "calculable": True, "orient": "horizontal", "left": "center", "bottom": 20},
+        "visualMap": {"min": 0, "max": max_val, "calculable": True, "orient": "horizontal", "left": "center", "bottom": 20,
+                       "formatter": "function(v){return (v/1e9).toFixed(1)+' B';}"},
         "series": [{
             "name": "Cash",
             "type": "heatmap",
