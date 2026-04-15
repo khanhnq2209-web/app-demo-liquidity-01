@@ -1,4 +1,4 @@
-"""Intelligence Hub — Ownership + IC Flow + IC Network in one page."""
+"""Inter Company — Ownership + IC Flow + IC Network in one page."""
 from __future__ import annotations
 
 import pandas as pd
@@ -12,11 +12,11 @@ from src.filters import in_scope
 from src.state import ensure_state, render_sidebar
 from src.ui import card, inject_css, subholding_filter
 
-st.set_page_config(page_title="Intelligence Hub", layout="wide")
+st.set_page_config(page_title="Inter Company", layout="wide")
 inject_css()
 dfs = ensure_state()
 render_sidebar(dfs)
-st.markdown("## Quản trị Rủi ro & Phơi nhiễm (Risk & Exposure)")
+st.markdown("## Giao dịch Nội bộ (Inter Company)")
 
 ss = st.session_state
 ent = dfs["dim_entity"]
