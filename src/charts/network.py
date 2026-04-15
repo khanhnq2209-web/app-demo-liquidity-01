@@ -20,12 +20,17 @@ def ownership_tree(dim_entity: pd.DataFrame, rel: pd.DataFrame, root: str = "GEL
 
     return {
         "tooltip": {"trigger": "item", "formatter": "{b}<br/>Ownership: {c}%"},
+        "toolbox": {
+            "show": True, "right": "2%", "top": "1%",
+            "feature": {"restore": {"title": "Reset"}, "saveAsImage": {"title": "Save"}},
+        },
         "series": [{
             "type": "tree",
             "data": [build(root)],
             "top": "5%", "bottom": "5%", "left": "12%", "right": "18%",
             "symbolSize": 12,
             "orient": "LR",
+            "roam": True,
             "itemStyle": {"color": "#1a73e8"},
             "lineStyle": {"color": "#9aa0a6", "width": 1.2, "curveness": 0.4},
             "label": {"position": "left", "verticalAlign": "middle",

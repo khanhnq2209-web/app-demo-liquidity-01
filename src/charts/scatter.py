@@ -3,6 +3,11 @@ from __future__ import annotations
 
 import pandas as pd
 
+_TOOLBOX = {
+    "show": True, "right": "2%", "top": "1%",
+    "feature": {"restore": {"title": "Reset"}, "saveAsImage": {"title": "Save"}},
+}
+
 
 def risk_bubble_chart(df: pd.DataFrame, use_quadrant: bool = False) -> dict:
     """
@@ -15,7 +20,7 @@ def risk_bubble_chart(df: pd.DataFrame, use_quadrant: bool = False) -> dict:
     median_ar = float(df["ar"].median()) if not df.empty else 0
 
     max_ic = float(df["ic_exposure"].max()) if df["ic_exposure"].max() > 0 else 1
-    
+
     data = []
     for r in df.itertuples():
         size_ratio = r.ic_exposure / max_ic
@@ -26,7 +31,7 @@ def risk_bubble_chart(df: pd.DataFrame, use_quadrant: bool = False) -> dict:
         })
 
     grid = {"top": 40, "bottom": 50, "left": 70, "right": 30}
-    
+
     mark_line = {}
     if use_quadrant:
         mark_line = {
@@ -44,6 +49,8 @@ def risk_bubble_chart(df: pd.DataFrame, use_quadrant: bool = False) -> dict:
             "trigger": "item",
             "formatter": "{b}<br/>Value: {c}"
         },
+        "toolbox": _TOOLBOX,
+        "dataZoom": [{"type": "inside"}, {"type": "slider", "height": 16, "bottom": 4}],
         "grid": grid,
         "xAxis": {
             "type": "value",
@@ -51,25 +58,18 @@ def risk_bubble_chart(df: pd.DataFrame, use_quadrant: bool = False) -> dict:
             "nameLocation": "middle",
             "nameGap": 30,
             "splitLine": {"show": not use_quadrant},
-            "axisLabel": {
-                "formatter": "{value}"
-            }
+            "axisLabel": {"formatter": "{value}"}
         },
         "yAxis": {
             "type": "value",
             "name": "External AR",
             "splitLine": {"show": not use_quadrant},
-            "axisLabel": {
-                "formatter": "{value}"
-            }
+            "axisLabel": {"formatter": "{value}"}
         },
         "series": [{
             "type": "scatter",
             "data": data,
-            "itemStyle": {
-                "opacity": 0.7,
-                "color": "#1a73e8"
-            },
+            "itemStyle": {"opacity": 0.7, "color": "#1a73e8"},
             "markLine": mark_line
         }]
     }

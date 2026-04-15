@@ -3,6 +3,12 @@ from __future__ import annotations
 
 import pandas as pd
 
+_TOOLBOX = {
+    "show": True, "right": "2%", "top": "1%",
+    "feature": {"restore": {"title": "Reset"}, "saveAsImage": {"title": "Save"}},
+}
+_DZ = [{"type": "inside"}, {"type": "slider", "height": 16, "bottom": 4}]
+
 
 def ar_heatmap(df: pd.DataFrame, top_k: int = 5) -> dict:
     """df columns: entity_name, client_group_name, external_ar_eom."""
@@ -20,11 +26,13 @@ def ar_heatmap(df: pd.DataFrame, top_k: int = 5) -> dict:
     max_val = float(pivot.values.max()) if pivot.size else 1.0
     return {
         "tooltip": {"position": "top"},
-        "grid": {"height": "70%", "top": "10%", "left": 120, "right": 80},
+        "toolbox": _TOOLBOX,
+        "dataZoom": _DZ,
+        "grid": {"height": "65%", "top": "8%", "left": 120, "right": 80},
         "xAxis": {"type": "category", "data": cols, "splitArea": {"show": True}},
         "yAxis": {"type": "category", "data": rows, "splitArea": {"show": True}},
         "visualMap": {"min": 0, "max": max_val, "calculable": True,
-                       "orient": "horizontal", "left": "center", "bottom": 0},
+                       "orient": "horizontal", "left": "center", "bottom": 20},
         "series": [{
             "name": "AR",
             "type": "heatmap",
@@ -41,18 +49,20 @@ def cash_heatmap(df: pd.DataFrame, name_map: dict[str, str]) -> dict:
     df_sorted = df.sort_values("cash_eom", ascending=False)
     entities = [(name_map.get(e, e).split(" · ")[0] if len(name_map.get(e, e)) > 15 else name_map.get(e, e)) for e in df_sorted["entity_id"]]
     vals = df_sorted["cash_eom"].tolist()
-    
+
     data = []
     for i, val in enumerate(vals):
         data.append({"value": [i, 0, float(val)], "name": entities[i]})
-        
+
     max_val = float(max(vals)) if vals else 1.0
     return {
         "tooltip": {"position": "top", "formatter": "{b}<br/>Cash: {c}"},
-        "grid": {"height": "50%", "top": "10%", "left": 60, "right": 20},
+        "toolbox": _TOOLBOX,
+        "dataZoom": _DZ,
+        "grid": {"height": "45%", "top": "8%", "left": 60, "right": 20},
         "xAxis": {"type": "category", "data": entities, "splitArea": {"show": True}, "axisLabel": {"rotate": 30, "interval": 0, "fontSize": 10}},
         "yAxis": {"type": "category", "data": ["Tiền mặt"], "splitArea": {"show": True}},
-        "visualMap": {"min": 0, "max": max_val, "calculable": True, "orient": "horizontal", "left": "center", "bottom": 0},
+        "visualMap": {"min": 0, "max": max_val, "calculable": True, "orient": "horizontal", "left": "center", "bottom": 20},
         "series": [{
             "name": "Cash",
             "type": "heatmap",
