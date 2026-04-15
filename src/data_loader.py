@@ -20,9 +20,9 @@ def _read(name: str, parse_dates: list[str] | None = None) -> pd.DataFrame:
 
 @st.cache_data(show_spinner=False)
 def load_all() -> dict[str, pd.DataFrame]:
-    # Cache busted: 2026-04-15b — fixed root=GELEX, GEE/GEL categories, rich cashflow restored
+    # Cache busted: 2026-04-15e — cashflow_v2 (NỘI BỘ cổ tức fixed + forecast 2027-03 + data_type)
     dfs = {
-        "dim_entity":            _read("dim_entity.csv"),
+        "dim_entity":            _read("dim_entity_gelex.csv"),
         "dim_period":            _read("dim_period.csv", parse_dates=["period_end"]),
         "dim_client_group":      _read("dim_client_group.csv"),
         "dim_cashflow_item":     _read("dim_cashflow_item.csv"),
@@ -32,7 +32,7 @@ def load_all() -> dict[str, pd.DataFrame]:
         "fact_ic_arap":          _read("fact_ic_arap.csv", parse_dates=["period_end"]),
         "fact_ic_loan":          _read("fact_ic_loan.csv", parse_dates=["period_end"]),
         "fact_credit":           _read("fact_credit_summary.csv", parse_dates=["period_end"]),
-        "fact_cash_flow":        _read("fact_cash_flow.csv", parse_dates=["period_end"]),
+        "fact_cash_flow":        _read("fact_cash_flow_v2.csv", parse_dates=["period_end"]),
         "fact_cash_plan":        _read("fact_cash_plan.csv", parse_dates=["period_end"]),
     }
     return dfs
