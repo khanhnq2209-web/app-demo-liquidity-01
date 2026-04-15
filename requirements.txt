@@ -1,0 +1,9 @@
+streamlit>=1.32
+pandas>=2.1
+numpy>=1.26
+streamlit-echarts>=0.4.0
+pyecharts>=2.0.5
+streamlit-aggrid>=1.0.5
+networkx>=3.2
+yfiles-jupyter-graphs>=1.7
+faker>=24.0
