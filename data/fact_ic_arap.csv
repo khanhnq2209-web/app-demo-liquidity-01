@@ -1,4 +1,4 @@
-period_end,from_entity_id,to_entity_id,ic_type,amount_eom
+﻿period_end,from_entity_id,to_entity_id,ic_type,amount_eom
 2022-04-30,002-7,006-5,IC_AR,1934406594.040133
 2022-05-31,002-7,006-5,IC_AR,2012407728.788944
 2022-06-30,002-7,006-5,IC_AR,2209137651.165493

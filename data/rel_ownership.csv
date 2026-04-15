@@ -1,4 +1,4 @@
-parent_entity_id,child_entity_id,ownership_pct,effective_from,effective_to
+﻿parent_entity_id,child_entity_id,ownership_pct,effective_from,effective_to
 001,002,92.09,,
 002,002-1,80.36,,
 002,002-2,95.05,,

@@ -1,4 +1,4 @@
-entity_id,entity_name,entity_type,parent_entity_id,subholding_code,industry,supply_chain_node,currency_code
+﻿entity_id,entity_name,entity_type,parent_entity_id,subholding_code,industry,supply_chain_node,currency_code
 001,GELEX,HOLDING,,,Holding,Holding,VND
 002,Hatang,SUBHOLDING,001,A,Infrastructure,Holding,VND
 002-1,VGC,COMPANY,002,A,Building materials,Raw Material,VND

@@ -1,4 +1,4 @@
-client_group_id,client_group_name,industry_group,is_other
+﻿client_group_id,client_group_name,industry_group,is_other
 CG01,EVN,Utilities,0
 CG02,Samsung Vina,Industrial,0
 CG03,Vingroup,Real estate,0

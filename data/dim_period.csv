@@ -1,4 +1,4 @@
-period_end,year,month,year_month,quarter,is_quarter_end
+﻿period_end,year,month,year_month,quarter,is_quarter_end
 2022-04-30,2022,4,2022-04,2022Q2,0
 2022-05-31,2022,5,2022-05,2022Q2,0
 2022-06-30,2022,6,2022-06,2022Q2,1
