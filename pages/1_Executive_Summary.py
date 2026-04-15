@@ -22,6 +22,7 @@ dfs = ensure_state()
 render_sidebar(dfs)
 
 st.markdown("## Báo cáo Lãnh đạo (Executive Summary)")
+st.info("📊 **Lưu ý:** Toàn bộ số liệu trong ứng dụng này chỉ mang tính **minh họa (demo)**, được tạo ngẫu nhiên bằng dữ liệu giả lập. Không phản ánh số liệu tài chính thực tế của bất kỳ tổ chức nào.")
 
 ss = st.session_state
 ent = dfs["dim_entity"]
