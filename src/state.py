@@ -63,8 +63,10 @@ def render_sidebar(dfs: dict[str, pd.DataFrame]) -> None:
             index=["Holding", "Sub-holding", "Company"].index(ss["level"]),
         )
 
-        sub_opts = ["(tất cả)", "A", "B"]
+        sub_codes = sorted(dfs["dim_entity"]["subholding_code"].dropna().unique().tolist())
+        sub_opts = ["(tất cả)"] + sub_codes
         cur_sub = ss["selected_subholding"] or "(tất cả)"
+        cur_sub = cur_sub if cur_sub in sub_opts else "(tất cả)"
         sub = st.selectbox("Khối KD (Sub-holding)", sub_opts, index=sub_opts.index(cur_sub))
         ss["selected_subholding"] = None if sub == "(tất cả)" else sub
 

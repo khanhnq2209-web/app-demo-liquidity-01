@@ -20,31 +20,34 @@ DATA_DIR = Path(__file__).resolve().parents[2] / "data"
 # ---------------------------------------------------------------------------
 
 ENTITIES = [
-    # (id, name, type, parent_id, subholding_code, industry, supply_chain_node)
-    ("001",     "GELEX",     "HOLDING",    None,  None, "Holding",            "Holding"),
-    ("002",     "Hatang",    "SUBHOLDING", "001", "A",  "Infrastructure",    "Holding"),
-    ("002-1",   "VGC",       "COMPANY",    "002", "A",  "Building materials", "Raw Material"),
-    ("002-2",   "Vinasupco", "COMPANY",    "002", "A",  "Water utility",      "Operation"),
-    ("002-3",   "H.PHUNG",   "COMPANY",    "002", "A",  "Renewable energy",   "Operation"),
-    ("002-4",   "ENGDLAK",   "COMPANY",    "002", "A",  "Renewable energy",   "Operation"),
-    ("002-5",   "ENGTNINH",  "COMPANY",    "002", "A",  "Renewable energy",   "Operation"),
-    ("002-6",   "CITTV",     "COMPANY",    "002", "A",  "Renewable energy",   "Operation"),
-    ("003",     "Electric",  "SUBHOLDING", "001", "B",  "Electric equipment", "Holding"),
-    ("003-1",   "CADIVI",    "COMPANY",    "003", "B",  "Cables",             "Manufacturing"),
-    ("003-1-1", "CAVDN",     "COMPANY",    "003-1", "B", "Cables",            "Manufacturing"),
-    ("003-2",   "THI",       "COMPANY",    "003", "B",  "Electric equipment", "Assembly/EPC"),
-    ("003-3",   "MEE",       "COMPANY",    "003", "B",  "Electric equipment", "Assembly/EPC"),
-    ("003-3-1", "HECO",      "COMPANY",    "003-3", "B", "Motors",            "Manufacturing"),
-    ("003-4",   "HEM",       "COMPANY",    "003", "B",  "Electric equipment", "Assembly/EPC"),
-    ("003-5",   "G-POWER",   "COMPANY",    "003", "B",  "Power generation",   "Operation"),
-    ("003-6",   "EMIC",      "COMPANY",    "003", "B",  "Metering",           "Distribution"),
-    ("003-7",   "CFT",       "COMPANY",    "003", "B",  "Transformers",       "Manufacturing"),
-    ("006-1",   "PTM",       "COMPANY",    "003", "B",  "Solar",              "Distribution"),
-    ("006-2",   "NTHUAN",    "COMPANY",    "003", "B",  "Solar",              "Distribution"),
-    ("006-3",   "NLDMN",     "COMPANY",    "003", "B",  "Solar",              "Distribution"),
-    ("006-4",   "MTMT",      "COMPANY",    "003", "B",  "Rooftop solar",      "Retail/End-User"),
-    ("006-5",   "MNA",       "COMPANY",    "003", "B",  "Rooftop solar",      "Retail/End-User"),
-    ("007",     "GEQTRI",    "COMPANY",    "001", None, "Renewable energy",   "Operation"),
+    # (id,            name,                                                          type,         parent,      sub,    industry,             supply_chain_node)
+    ("GELEX",         "Công ty cổ phần Tập đoàn Gelex",                             "HOLDING",    None,        None,   "Holding",            "Holding"),
+    # ── Sub-holding GEE (Thiết bị điện) ──────────────────────────────────────────
+    ("GEE",           "Công ty Cổ phần Thiết bị điện Gelex",                        "SUBHOLDING", "GELEX",     "GEE",  "Electric equipment", "Holding"),
+    ("CADIVI",        "Công ty Cổ phần Dây Cáp Điện Việt Nam",                      "COMPANY",    "GEE",       "GEE",  "Cables",             "Manufacturing"),
+    ("CMB",           "Công ty TNHH MTV Cadivi Miền Bắc",                           "COMPANY",    "CADIVI",    "GEE",  "Cables",             "Manufacturing"),
+    ("THI",           "Công ty Cổ phần Thiết bị Điện",                              "COMPANY",    "GEE",       "GEE",  "Electric equipment", "Distribution"),
+    ("MEE",           "Công ty Cổ phần Sản xuất Thiết bị điện Đông Anh",            "COMPANY",    "GEE",       "GEE",  "Electric equipment", "Manufacturing"),
+    ("HEM",           "Công ty Cổ phần Chế tạo Điện Cơ Hà Nội",                    "COMPANY",    "GEE",       "GEE",  "Motors",             "Manufacturing"),
+    ("EMIC",          "Công ty Cổ phần Thiết bị đo điện EMIC",                      "COMPANY",    "GEE",       "GEE",  "Metering",           "Manufacturing"),
+    ("CFT",           "Công ty Dây đồng Việt Nam - CFT",                            "COMPANY",    "GEE",       "GEE",  "Cables",             "Raw Material"),
+    ("Phatdien",      "Công ty TNHH Một thành viên Phát điện Gelex",                "COMPANY",    "GEE",       "GEE",  "Power generation",   "Operation"),
+    ("GETC",          "Công ty Cổ phần Mua bán điện GELEX",                         "COMPANY",    "GEE",       "GEE",  "Power generation",   "Distribution"),
+    # ── Directly under GELEX (no subholding) ─────────────────────────────────────
+    ("GELEXTECH",     "Công ty TNHH GELEX Technology",                              "COMPANY",    "GELEX",     None,   "Technology",         "Assembly/EPC"),
+    ("GELEXINVEST",   "Công ty TNHH Đầu tư GELEX",                                 "COMPANY",    "GELEX",     None,   "Investment",         "Holding"),
+    # ── Sub-holding GEL (Hạ tầng) ────────────────────────────────────────────────
+    ("GEL",           "Công ty cổ phần Hạ tầng Gelex",                              "SUBHOLDING", "GELEX",     "GEL",  "Infrastructure",     "Holding"),
+    ("VGC",           "Tổng Công ty Viglacera – CTCP và các công ty con",           "COMPANY",    "GEL",       "GEL",  "Building materials", "Manufacturing"),
+    ("Viwasupco",     "Công ty Cổ phần Đầu tư Nước sạch Sông Đà",                  "COMPANY",    "VGC",       "GEL",  "Water utility",      "Operation"),
+    ("PXL",           "Công ty Cổ phần Đầu tư và phát triển KCN Dầu khí Long Sơn", "COMPANY",    "GEL",       "GEL",  "Industrial zone",    "Operation"),
+    ("FIH",           "Công ty TNHH FIH và các công ty con",                        "COMPANY",    "GEL",       "GEL",  "Mixed",              "Assembly/EPC"),
+    ("TITANHP",       "Công ty Cổ phần Titan Hải Phòng",                            "COMPANY",    "GEL",       "GEL",  "Logistics",          "Distribution"),
+    ("WADACO",        "Công ty Cổ phần Nước sạch Tây Hà Nội",                       "COMPANY",    "GEL",       "GEL",  "Water utility",      "Operation"),
+    ("TitanCorp",     "Công ty TNHH Titan Corporation",                             "COMPANY",    "TITANHP",   "GEL",  "Logistics",          "Retail/End-User"),
+    ("BSG1",          "Công ty TNHH Hạ tầng Gelex Bắc Sài Gòn 1",                  "COMPANY",    "GEL",       "GEL",  "Infrastructure",     "Operation"),
+    ("BSG2",          "Công ty TNHH Hạ tầng Gelex Bắc Sài Gòn 2",                  "COMPANY",    "GEL",       "GEL",  "Infrastructure",     "Operation"),
+    ("TTP",           "Công ty TNHH Hạ tầng Gelex Tây Thành Phố",                  "COMPANY",    "GEL",       "GEL",  "Infrastructure",     "Operation"),
 ]
 
 CLIENT_GROUPS = [
@@ -107,18 +110,8 @@ def _make_periods(end: pd.Timestamp, n_months: int) -> pd.DataFrame:
     return df
 
 
-SYNTHETIC_PAD = [
-    ("002-7", "Gelex-Water-Hanoi",  "COMPANY", "002", "A", "Water utility",     "Operation"),
-    ("002-8", "Gelex-Hydro-South",  "COMPANY", "002", "A", "Renewable energy",  "Operation"),
-    ("002-9", "Gelex-Logistics",    "COMPANY", "002", "A", "Logistics",          "Distribution"),
-    ("003-8", "Gelex-Transformer-HCMC", "COMPANY", "003", "B", "Transformers",   "Manufacturing"),
-    ("003-9", "Gelex-Metering-South",   "COMPANY", "003", "B", "Metering",       "Distribution"),
-    ("006-6", "Gelex-Solar-Phan-Rang",  "COMPANY", "003", "B", "Solar",          "Distribution"),
-]
-
-
 def _entity_frame() -> pd.DataFrame:
-    rows = list(ENTITIES) + list(SYNTHETIC_PAD)
+    rows = list(ENTITIES)
     return pd.DataFrame(
         rows,
         columns=[
@@ -143,8 +136,8 @@ def _ownership(rng: np.random.Generator, entities: pd.DataFrame) -> pd.DataFrame
             continue
         pct = float(np.round(rng.uniform(65, 100), 2))
         rows.append((e.parent_entity_id, e.entity_id, pct, None, None))
-    # Inject cross-holding: 003-1 owns 20% of 003-3
-    rows.append(("003-1", "003-3", 20.0, None, None))
+    # Inject cross-holding: CADIVI owns 15% of MEE (supply chain integration)
+    rows.append(("CADIVI", "MEE", 15.0, None, None))
     return pd.DataFrame(
         rows,
         columns=["parent_entity_id", "child_entity_id", "ownership_pct", "effective_from", "effective_to"],
@@ -341,20 +334,27 @@ def generate(out_dir: Path = DATA_DIR, n_months: int = 48, end: str = "2026-03-3
     cf_items = _cashflow_items_dim()
     cash_plan = _cash_plan(rng, cash, companies)
 
-    entities.to_csv(out_dir / "dim_entity.csv", index=False)
-    periods.to_csv(out_dir / "dim_period.csv", index=False)
-    client_groups.to_csv(out_dir / "dim_client_group.csv", index=False)
-    ownership.to_csv(out_dir / "rel_ownership.csv", index=False)
-    cash.to_csv(out_dir / "fact_cash_balance.csv", index=False)
-    ar.to_csv(out_dir / "fact_external_ar_by_client_group.csv", index=False)
-    ic_arap.to_csv(out_dir / "fact_ic_arap.csv", index=False)
-    ic_loan.to_csv(out_dir / "fact_ic_loan.csv", index=False)
-    credit.to_csv(out_dir / "fact_credit_summary.csv", index=False)
-    cashflow.to_csv(out_dir / "fact_cash_flow.csv", index=False)
-    cf_items.to_csv(out_dir / "dim_cashflow_item.csv", index=False)
-    cash_plan.to_csv(out_dir / "fact_cash_plan.csv", index=False)
-
-    print(f"Wrote {len(os.listdir(out_dir))} CSVs to {out_dir}")
+    enc = "utf-8-sig"
+    saves = {
+        "dim_entity.csv": entities,
+        "dim_period.csv": periods,
+        "dim_client_group.csv": client_groups,
+        "rel_ownership.csv": ownership,
+        "fact_cash_balance.csv": cash,
+        "fact_external_ar_by_client_group.csv": ar,
+        "fact_ic_arap.csv": ic_arap,
+        "fact_ic_loan.csv": ic_loan,
+        "fact_credit_summary.csv": credit,
+        "fact_cash_flow.csv": cashflow,
+        "dim_cashflow_item.csv": cf_items,
+        "fact_cash_plan.csv": cash_plan,
+    }
+    for fname, df in saves.items():
+        try:
+            df.to_csv(out_dir / fname, index=False, encoding=enc)
+            print(f"  OK  {fname} ({len(df):,} rows)")
+        except PermissionError:
+            print(f"  SKIP {fname} — file is open/locked, close it in the IDE and re-run")
 
 
 if __name__ == "__main__":

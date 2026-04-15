@@ -119,8 +119,9 @@ def multi_entity_filter(dim_entity: pd.DataFrame, key: str,
     return picked
 
 
-def subholding_filter(key: str) -> list[str]:
-    return st.multiselect("Khối Kinh doanh (Sub-holding)", ["A", "B"], default=[], key=key)
+def subholding_filter(key: str, options: list[str] | None = None) -> list[str]:
+    opts = options if options is not None else ["GEE", "GEL"]
+    return st.multiselect("Khối Kinh doanh (Sub-holding)", opts, default=[], key=key)
 
 
 def client_group_filter(dim_cg: pd.DataFrame, key: str) -> list[str]:
