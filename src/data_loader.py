@@ -20,7 +20,7 @@ def _read(name: str, parse_dates: list[str] | None = None) -> pd.DataFrame:
 
 @st.cache_data(show_spinner=False)
 def load_all() -> dict[str, pd.DataFrame]:
-    # Cache busted: data regenerated with new fields (interest_rate)
+    # Cache busted: fact_cash_flow regenerated 2026-04-15 with full counterparty/stability coverage
     dfs = {
         "dim_entity":            _read("dim_entity.csv"),
         "dim_period":            _read("dim_period.csv", parse_dates=["period_end"]),
