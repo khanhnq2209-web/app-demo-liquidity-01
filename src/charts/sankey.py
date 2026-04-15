@@ -97,6 +97,15 @@ def ic_sankey(df: pd.DataFrame, name_map: dict[str, str],
 
     return {
         "tooltip": {"trigger": "item", "triggerOn": "mousemove"},
+        "toolbox": {
+            "show": True,
+            "right": "2%",
+            "top": "1%",
+            "feature": {
+                "restore": {"show": True, "title": "Reset zoom"},
+                "saveAsImage": {"show": True, "title": "Save image"},
+            },
+        },
         "series": [{
             "type": "sankey",
             "data": data_nodes,
@@ -104,6 +113,7 @@ def ic_sankey(df: pd.DataFrame, name_map: dict[str, str],
             "emphasis": {"focus": "adjacency"},
             "nodeAlign": "justify",
             "layoutIterations": 32,
+            "roam": True,
             "label": {"fontSize": 11, "color": "#202124", "fontWeight": "bold"},
             "edgeLabel": {
                 "show": True,
@@ -113,7 +123,7 @@ def ic_sankey(df: pd.DataFrame, name_map: dict[str, str],
                 "opacity": 0.8
             },
             "itemStyle": {"borderWidth": 1, "borderColor": "#334155"},
-            "left": "4%", "right": "8%", "top": "3%", "bottom": "3%",
+            "left": "4%", "right": "8%", "top": "6%", "bottom": "3%",
         }],
     }
 
@@ -199,6 +209,15 @@ def cf_sankey(df: pd.DataFrame, name_map: dict[str, str],
             "triggerOn": "mousemove",
             "formatter": "{b}: {c}",
         },
+        "toolbox": {
+            "show": True,
+            "right": "2%",
+            "top": "1%",
+            "feature": {
+                "restore": {"show": True, "title": "Reset zoom"},
+                "saveAsImage": {"show": True, "title": "Save image"},
+            },
+        },
         "color": list(_CAT_COLOR.values()),
         "series": [{
             "type": "sankey",
@@ -207,6 +226,7 @@ def cf_sankey(df: pd.DataFrame, name_map: dict[str, str],
             "emphasis": {"focus": "adjacency"},
             "nodeAlign": "justify",
             "layoutIterations": 64,
+            "roam": True,
             "label": {"fontSize": 11, "color": "#1e293b", "fontWeight": "bold"},
             "edgeLabel": {
                 "show": True,
@@ -216,6 +236,6 @@ def cf_sankey(df: pd.DataFrame, name_map: dict[str, str],
                 "opacity": 0.7,
             },
             "itemStyle": {"borderWidth": 1, "borderColor": "#475569"},
-            "left": "4%", "right": "10%", "top": "3%", "bottom": "3%",
+            "left": "4%", "right": "10%", "top": "6%", "bottom": "3%",
         }],
     }
