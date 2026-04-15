@@ -1,0 +1,30 @@
+activity_category,line_item,typical_sign
+OPERATING,Dự thu,1
+OPERATING,Lợi nhuận thuần trước thuế,1
+OPERATING,Khấu hao TSCĐ,1
+OPERATING,Dự phòng,1
+OPERATING,Lãi/lỗ do đánh giá lại các khoản mục tiền tệ có gốc ngoại tệ,-1
+OPERATING,Lãi/lỗ từ hoạt động đầu tư,1
+OPERATING,Chi phí lãi vay,-1
+OPERATING,Tăng/giảm các khoản phải thu,-1
+OPERATING,Tăng/giảm hàng tồn kho,-1
+OPERATING,Tăng/giảm các khoản phải trả,1
+OPERATING,Tăng/giảm chi phí trả trước,-1
+OPERATING,Tăng/giảm TSCĐ khác,-1
+OPERATING,Lãi vay đã trả,-1
+OPERATING,Thuế TNDN đã trả,-1
+OPERATING,Tiền thu từ hoạt động kinh doanh khác,1
+OPERATING,Tiền chi khác cho hoạt động kinh doanh,-1
+INVESTING,"Tiền chi mua sắm, xây dựng tài sản cố định",-1
+INVESTING,"Tiền thu từ thanh lý, nhượng bán tài sản cố định",1
+INVESTING,"Tiền chi cho vay, mua công cụ nợ",-1
+INVESTING,"Tiền thu hồi cho vay, mua công cụ nợ",1
+INVESTING,Tiền chi góp vốn vào đơn vị khác,-1
+INVESTING,Tiền thu hồi góp vốn vào đơn vị khác,1
+INVESTING,"Tiền thu lãi cho vay, cổ tức, lợi nhuận được chia",1
+FINANCING,"Tiền thu từ phát hành cổ phiếu, nhận vốn góp",1
+FINANCING,"Tiền chi trả vốn góp, mua lại cổ phiếu",-1
+FINANCING,Tiền thu từ đi vay,1
+FINANCING,Tiền trả nợ vay,-1
+FINANCING,Tiền trả nợ thuê TC,-1
+FINANCING,Tiền trả cổ tức,-1

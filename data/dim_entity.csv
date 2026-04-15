@@ -1,0 +1,31 @@
+entity_id,entity_name,entity_type,parent_entity_id,subholding_code,industry,supply_chain_node,currency_code
+001,GELEX,HOLDING,,,Holding,Holding,VND
+002,Hatang,SUBHOLDING,001,A,Infrastructure,Holding,VND
+002-1,VGC,COMPANY,002,A,Building materials,Raw Material,VND
+002-2,Vinasupco,COMPANY,002,A,Water utility,Operation,VND
+002-3,H.PHUNG,COMPANY,002,A,Renewable energy,Operation,VND
+002-4,ENGDLAK,COMPANY,002,A,Renewable energy,Operation,VND
+002-5,ENGTNINH,COMPANY,002,A,Renewable energy,Operation,VND
+002-6,CITTV,COMPANY,002,A,Renewable energy,Operation,VND
+003,Electric,SUBHOLDING,001,B,Electric equipment,Holding,VND
+003-1,CADIVI,COMPANY,003,B,Cables,Manufacturing,VND
+003-1-1,CAVDN,COMPANY,003-1,B,Cables,Manufacturing,VND
+003-2,THI,COMPANY,003,B,Electric equipment,Assembly/EPC,VND
+003-3,MEE,COMPANY,003,B,Electric equipment,Assembly/EPC,VND
+003-3-1,HECO,COMPANY,003-3,B,Motors,Manufacturing,VND
+003-4,HEM,COMPANY,003,B,Electric equipment,Assembly/EPC,VND
+003-5,G-POWER,COMPANY,003,B,Power generation,Operation,VND
+003-6,EMIC,COMPANY,003,B,Metering,Distribution,VND
+003-7,CFT,COMPANY,003,B,Transformers,Manufacturing,VND
+006-1,PTM,COMPANY,003,B,Solar,Distribution,VND
+006-2,NTHUAN,COMPANY,003,B,Solar,Distribution,VND
+006-3,NLDMN,COMPANY,003,B,Solar,Distribution,VND
+006-4,MTMT,COMPANY,003,B,Rooftop solar,Retail/End-User,VND
+006-5,MNA,COMPANY,003,B,Rooftop solar,Retail/End-User,VND
+007,GEQTRI,COMPANY,001,,Renewable energy,Operation,VND
+002-7,Gelex-Water-Hanoi,COMPANY,002,A,Water utility,Operation,VND
+002-8,Gelex-Hydro-South,COMPANY,002,A,Renewable energy,Operation,VND
+002-9,Gelex-Logistics,COMPANY,002,A,Logistics,Distribution,VND
+003-8,Gelex-Transformer-HCMC,COMPANY,003,B,Transformers,Manufacturing,VND
+003-9,Gelex-Metering-South,COMPANY,003,B,Metering,Distribution,VND
+006-6,Gelex-Solar-Phan-Rang,COMPANY,003,B,Solar,Distribution,VND

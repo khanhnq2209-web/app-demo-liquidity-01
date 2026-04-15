@@ -1,0 +1,9 @@
+client_group_id,client_group_name,industry_group,is_other
+CG01,EVN,Utilities,0
+CG02,Samsung Vina,Industrial,0
+CG03,Vingroup,Real estate,0
+CG04,Coteccons,Construction,0
+CG05,Hòa Phát,Industrial,0
+CG06,PetroVietnam,Energy,0
+CG07,End-user retail,Retail,0
+CG08,Other,Mixed,1
