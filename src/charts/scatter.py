@@ -2,11 +2,13 @@
 from __future__ import annotations
 
 import pandas as pd
+from streamlit_echarts import JsCode
 
 _TOOLBOX = {
     "show": True, "right": "2%", "top": "1%",
     "feature": {"restore": {"title": "Reset"}, "saveAsImage": {"title": "Save"}},
 }
+_FMT_AXIS = JsCode("function(v){return (v/1e9).toFixed(0);}")
 
 
 def risk_bubble_chart(df: pd.DataFrame, use_quadrant: bool = False) -> dict:
@@ -39,7 +41,7 @@ def risk_bubble_chart(df: pd.DataFrame, use_quadrant: bool = False) -> dict:
     return {
         "tooltip": {
             "trigger": "item",
-            "formatter": "function(p){return p.name+'<br/>Cash: '+(p.value[0]/1e9).toFixed(2)+' Tỷ VND<br/>AR: '+(p.value[1]/1e9).toFixed(2)+' Tỷ VND<br/>IC Exposure: '+(p.value[2]/1e9).toFixed(2)+' Tỷ VND';}"
+            "formatter": JsCode("function(p){return p.name+'<br/>Cash: '+(p.value[0]/1e9).toFixed(2)+' Tỷ VND<br/>AR: '+(p.value[1]/1e9).toFixed(2)+' Tỷ VND<br/>IC Exposure: '+(p.value[2]/1e9).toFixed(2)+' Tỷ VND';}")
         },
         "toolbox": _TOOLBOX,
         "dataZoom": [{"type": "inside"}, {"type": "slider", "height": 16, "bottom": 4}],
@@ -47,12 +49,12 @@ def risk_bubble_chart(df: pd.DataFrame, use_quadrant: bool = False) -> dict:
         "xAxis": {
             "type": "value", "name": "Cash (Tỷ VND)", "nameLocation": "middle", "nameGap": 30,
             "splitLine": {"show": not use_quadrant},
-            "axisLabel": {"formatter": "function(v){return (v/1e9).toFixed(0);}"}
+            "axisLabel": {"formatter": _FMT_AXIS}
         },
         "yAxis": {
             "type": "value", "name": "External AR (Tỷ VND)",
             "splitLine": {"show": not use_quadrant},
-            "axisLabel": {"formatter": "function(v){return (v/1e9).toFixed(0);}"}
+            "axisLabel": {"formatter": _FMT_AXIS}
         },
         "series": [{
             "type": "scatter", "data": data,

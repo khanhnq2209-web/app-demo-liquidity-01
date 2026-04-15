@@ -3,6 +3,9 @@ from __future__ import annotations
 
 import networkx as nx
 import pandas as pd
+from streamlit_echarts import JsCode
+
+_TT_SANKEY = JsCode("function(p){var v=(p.value/1e9).toFixed(2)+' Tỷ VND';if(p.dataType==='edge'){return p.data.source+' → '+p.data.target+'<br/>'+v;}return p.name+'<br/>'+v;}")
 
 
 _CAT_COLOR = {
@@ -97,7 +100,7 @@ def ic_sankey(df: pd.DataFrame, name_map: dict[str, str],
 
     return {
         "tooltip": {"trigger": "item", "triggerOn": "mousemove",
-                    "formatter": "function(p){var v=(p.value/1e9).toFixed(2)+' Tỷ VND';if(p.dataType==='edge'){return p.data.source+' → '+p.data.target+'<br/>'+v;}return p.name+'<br/>'+v;}"},
+                    "formatter": _TT_SANKEY},
         "toolbox": {
             "show": True,
             "right": "2%",
@@ -207,7 +210,7 @@ def cf_sankey(df: pd.DataFrame, name_map: dict[str, str],
     return {
         "tooltip": {
             "trigger": "item", "triggerOn": "mousemove",
-            "formatter": "function(p){var v=(p.value/1e9).toFixed(2)+' Tỷ VND';if(p.dataType==='edge'){return p.data.source+' → '+p.data.target+'<br/>'+v;}return p.name+'<br/>'+v;}",
+            "formatter": _TT_SANKEY,
         },
         "toolbox": {
             "show": True,

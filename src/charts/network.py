@@ -2,6 +2,9 @@
 from __future__ import annotations
 
 import pandas as pd
+from streamlit_echarts import JsCode
+
+_TT_NETWORK = JsCode("function(p){if(p.dataType==='edge'){return p.data.source+' → '+p.data.target+'<br/>'+(p.data.value/1e9).toFixed(2)+' Tỷ VND';}return p.name;}")
 
 
 def ownership_tree(dim_entity: pd.DataFrame, rel: pd.DataFrame, root: str = "GELEX") -> dict:
@@ -141,7 +144,7 @@ def ic_network(ic_arap: pd.DataFrame, ic_loan: pd.DataFrame,
         series = {**common, "type": "graph", "layout": "none"}
 
     return {
-        "tooltip": {"formatter": "function(p){if(p.dataType==='edge'){return p.data.source+' → '+p.data.target+'<br/>'+(p.data.value/1e9).toFixed(2)+' Tỷ VND';}return p.name;}"},
+        "tooltip": {"formatter": _TT_NETWORK},
         "legend": [{"data": [c["name"] for c in _CATEGORIES], "top": 4,
                      "textStyle": {"color": "#5f6368"}}],
         "series": [series],
@@ -215,7 +218,7 @@ def cashflow_network(cf_df: pd.DataFrame, dim_entity: pd.DataFrame, name_map: di
         series["circular"] = {"rotateLabel": True}
 
     return {
-        "tooltip": {"formatter": "function(p){if(p.dataType==='edge'){return p.data.source+' → '+p.data.target+'<br/>'+(p.data.value/1e9).toFixed(2)+' Tỷ VND';}return p.name;}"},
+        "tooltip": {"formatter": _TT_NETWORK},
         "legend": [{"data": [c["name"] for c in _CATEGORIES], "top": 4, "textStyle": {"color": "#5f6368"}}],
         "series": [series],
     }

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import pandas as pd
+from streamlit_echarts import JsCode
 
 _TOOLBOX = {
     "show": True, "right": "2%", "top": "1%",
@@ -10,8 +11,8 @@ _TOOLBOX = {
 _DATAZOOM = [{"type": "inside"}, {"type": "slider", "height": 16, "bottom": 4}]
 _DATAZOOM_Y = [{"type": "inside"}, {"type": "slider", "yAxisIndex": 0, "right": 4, "width": 16}]
 
-# Axis tooltip: divides each series value by 1e9 → Tỷ VND
-_TT_AXIS = {"trigger": "axis", "formatter": "function(params){var s=params[0].axisValue+'<br/>';params.forEach(function(p){s+=p.marker+p.seriesName+': '+(p.value/1e9).toFixed(2)+' Tỷ VND<br/>';});return s;}"}
+_FMT_AXIS = JsCode("function(v){return (v/1e9).toFixed(0)+' B';}")
+_TT_AXIS = {"trigger": "axis", "formatter": JsCode("function(params){var s=params[0].axisValue+'<br/>';params.forEach(function(p){s+=p.marker+(p.seriesName||'')+': '+(p.value/1e9).toFixed(2)+' Tỷ VND<br/>';});return s;}")}
 _TT_AXIS_SHADOW = {**_TT_AXIS, "axisPointer": {"type": "shadow"}}
 
 
@@ -21,7 +22,7 @@ def cash_treemap(df: pd.DataFrame, name_map: dict[str, str]) -> dict:
         for r in df.itertuples()
     ]
     return {
-        "tooltip": {"formatter": "function(p){return p.name+'<br/>'+(p.value/1e9).toFixed(2)+' Tỷ VND';}"},
+        "tooltip": {"formatter": JsCode("function(p){return p.name+'<br/>'+(p.value/1e9).toFixed(2)+' Tỷ VND';}")},
         "toolbox": _TOOLBOX,
         "series": [{
             "type": "treemap",
@@ -41,9 +42,9 @@ def cash_bar(df: pd.DataFrame, name_map: dict[str, str]) -> dict:
         "tooltip": _TT_AXIS,
         "toolbox": _TOOLBOX,
         "dataZoom": _DATAZOOM,
-        "grid": {"top": 30, "bottom": 70, "left": 60, "right": 20},
+        "grid": {"top": 30, "bottom": 70, "left": 70, "right": 20},
         "xAxis": {"type": "category", "data": entities, "axisLabel": {"rotate": 30, "interval": 0, "fontSize": 10}},
-        "yAxis": {"type": "value", "axisLabel": {"formatter": "function(v){return (v/1e9).toFixed(0)+' B';}"}},
+        "yAxis": {"type": "value", "axisLabel": {"formatter": _FMT_AXIS}},
         "series": [{"type": "bar", "name": "Cash", "data": values}]
     }
 
@@ -65,9 +66,9 @@ def ar_stacked_bar(df: pd.DataFrame, top_k: int = 5) -> dict:
         "legend": {"top": 0},
         "toolbox": _TOOLBOX,
         "dataZoom": _DATAZOOM,
-        "grid": {"top": 40, "bottom": 70, "left": 60, "right": 20},
+        "grid": {"top": 40, "bottom": 70, "left": 70, "right": 20},
         "xAxis": {"type": "category", "data": entities, "axisLabel": {"rotate": 30}},
-        "yAxis": {"type": "value", "axisLabel": {"formatter": "function(v){return (v/1e9).toFixed(0)+' B';}"}},
+        "yAxis": {"type": "value", "axisLabel": {"formatter": _FMT_AXIS}},
         "series": series,
     }
 
@@ -85,8 +86,8 @@ def cash_ar_trend(cash_ts: pd.DataFrame, ar_ts: pd.DataFrame) -> dict:
         "grid": {"top": 40, "bottom": 50, "left": 70, "right": 70},
         "xAxis": {"type": "category", "data": labels},
         "yAxis": [
-            {"type": "value", "name": "Cash (Tỷ)", "axisLabel": {"formatter": "function(v){return (v/1e9).toFixed(0);}"}},
-            {"type": "value", "name": "AR (Tỷ)",   "axisLabel": {"formatter": "function(v){return (v/1e9).toFixed(0);}"}},
+            {"type": "value", "name": "Cash (Tỷ)", "axisLabel": {"formatter": _FMT_AXIS}},
+            {"type": "value", "name": "AR (Tỷ)",   "axisLabel": {"formatter": _FMT_AXIS}},
         ],
         "series": [
             {"name": "Cash", "type": "line", "smooth": True,
@@ -100,19 +101,17 @@ def cash_ar_trend(cash_ts: pd.DataFrame, ar_ts: pd.DataFrame) -> dict:
 def utilization_bar(df: pd.DataFrame) -> dict:
     df = df.sort_values("utilization", ascending=False)
     return {
-        "tooltip": {"trigger": "axis", "formatter": "function(params){return params[0].axisValue+'<br/>'+params[0].marker+'Utilization: '+(params[0].value*100).toFixed(1)+'%';}"},
+        "tooltip": {"trigger": "axis", "formatter": JsCode("function(params){return params[0].axisValue+'<br/>'+params[0].marker+'Utilization: '+(params[0].value*100).toFixed(1)+'%';}")},
         "toolbox": _TOOLBOX,
         "dataZoom": _DATAZOOM,
         "grid": {"top": 30, "bottom": 70, "left": 60, "right": 20},
-        "xAxis": {"type": "category", "data": df["entity_name"].tolist(),
-                   "axisLabel": {"rotate": 30}},
-        "yAxis": {"type": "value", "max": 1, "axisLabel": {"formatter": "function(v){return (v*100).toFixed(0)+'%';}"}},
+        "xAxis": {"type": "category", "data": df["entity_name"].tolist(), "axisLabel": {"rotate": 30}},
+        "yAxis": {"type": "value", "max": 1, "axisLabel": {"formatter": JsCode("function(v){return (v*100).toFixed(0)+'%';}")}},
         "series": [{
             "name": "Utilization",
             "type": "bar",
             "data": [
-                {"value": float(u),
-                 "itemStyle": {"color": "#d33" if u > 0.85 else "#4c8bf5"}}
+                {"value": float(u), "itemStyle": {"color": "#d33" if u > 0.85 else "#4c8bf5"}}
                 for u in df["utilization"].values
             ],
         }],

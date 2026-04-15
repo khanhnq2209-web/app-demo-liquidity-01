@@ -2,12 +2,14 @@
 from __future__ import annotations
 
 import pandas as pd
+from streamlit_echarts import JsCode
 
 _TOOLBOX = {
     "show": True, "right": "2%", "top": "1%",
     "feature": {"restore": {"title": "Reset"}, "saveAsImage": {"title": "Save"}},
 }
 _DZ = [{"type": "inside"}, {"type": "slider", "height": 16, "bottom": 4}]
+_FMT_VIS = JsCode("function(v){return (v/1e9).toFixed(1)+' B';}")
 
 
 def ar_heatmap(df: pd.DataFrame, top_k: int = 5) -> dict:
@@ -25,7 +27,7 @@ def ar_heatmap(df: pd.DataFrame, top_k: int = 5) -> dict:
             data.append({"value": [j, i, float(pivot.iloc[i, j])], "name": f"{rows[i]}||{cols[j]}"})
     max_val = float(pivot.values.max()) if pivot.size else 1.0
     return {
-        "tooltip": {"position": "top", "formatter": "function(p){var parts=p.data.name.split('||');return parts[0]+'<br/>'+parts[1]+'<br/>'+(p.data.value[2]/1e9).toFixed(2)+' Tỷ VND';}"},
+        "tooltip": {"position": "top", "formatter": JsCode("function(p){var parts=p.data.name.split('||');return parts[0]+'<br/>'+parts[1]+'<br/>'+(p.data.value[2]/1e9).toFixed(2)+' Tỷ VND';}")},
         "toolbox": _TOOLBOX,
         "dataZoom": _DZ,
         "grid": {"height": "65%", "top": "8%", "left": 120, "right": 80},
@@ -33,11 +35,9 @@ def ar_heatmap(df: pd.DataFrame, top_k: int = 5) -> dict:
         "yAxis": {"type": "category", "data": rows, "splitArea": {"show": True}},
         "visualMap": {"min": 0, "max": max_val, "calculable": True,
                        "orient": "horizontal", "left": "center", "bottom": 20,
-                       "formatter": "function(v){return (v/1e9).toFixed(1)+' B';}"},
+                       "formatter": _FMT_VIS},
         "series": [{
-            "name": "AR",
-            "type": "heatmap",
-            "data": data,
+            "name": "AR", "type": "heatmap", "data": data,
             "label": {"show": False},
             "emphasis": {"itemStyle": {"shadowBlur": 10, "shadowColor": "rgba(0,0,0,0.5)"}},
         }],
@@ -46,29 +46,24 @@ def ar_heatmap(df: pd.DataFrame, top_k: int = 5) -> dict:
 
 def cash_heatmap(df: pd.DataFrame, name_map: dict[str, str]) -> dict:
     """1D Heatmap for cash by entity."""
-    if df.empty: return {}
+    if df.empty:
+        return {}
     df_sorted = df.sort_values("cash_eom", ascending=False)
     entities = [(name_map.get(e, e).split(" · ")[0] if len(name_map.get(e, e)) > 15 else name_map.get(e, e)) for e in df_sorted["entity_id"]]
     vals = df_sorted["cash_eom"].tolist()
-
-    data = []
-    for i, val in enumerate(vals):
-        data.append({"value": [i, 0, float(val)], "name": entities[i]})
-
+    data = [{"value": [i, 0, float(val)], "name": entities[i]} for i, val in enumerate(vals)]
     max_val = float(max(vals)) if vals else 1.0
     return {
-        "tooltip": {"position": "top", "formatter": "function(p){return p.data.name+'<br/>'+(p.data.value[2]/1e9).toFixed(2)+' Tỷ VND';}"},
+        "tooltip": {"position": "top", "formatter": JsCode("function(p){return p.data.name+'<br/>'+(p.data.value[2]/1e9).toFixed(2)+' Tỷ VND';}")},
         "toolbox": _TOOLBOX,
         "dataZoom": _DZ,
         "grid": {"height": "45%", "top": "8%", "left": 60, "right": 20},
         "xAxis": {"type": "category", "data": entities, "splitArea": {"show": True}, "axisLabel": {"rotate": 30, "interval": 0, "fontSize": 10}},
         "yAxis": {"type": "category", "data": ["Tiền mặt"], "splitArea": {"show": True}},
-        "visualMap": {"min": 0, "max": max_val, "calculable": True, "orient": "horizontal", "left": "center", "bottom": 20,
-                       "formatter": "function(v){return (v/1e9).toFixed(1)+' B';}"},
+        "visualMap": {"min": 0, "max": max_val, "calculable": True, "orient": "horizontal",
+                       "left": "center", "bottom": 20, "formatter": _FMT_VIS},
         "series": [{
-            "name": "Cash",
-            "type": "heatmap",
-            "data": data,
+            "name": "Cash", "type": "heatmap", "data": data,
             "label": {"show": False},
             "emphasis": {"itemStyle": {"shadowBlur": 10, "shadowColor": "rgba(0,0,0,0.5)"}},
         }],
