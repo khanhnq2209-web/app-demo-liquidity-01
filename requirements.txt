@@ -7,3 +7,4 @@ streamlit-aggrid>=1.0.5
 networkx>=3.2
 yfiles-jupyter-graphs>=1.7
 faker>=24.0
+graphviz>=0.20
